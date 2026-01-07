@@ -2,6 +2,7 @@ import { useState, useEffect  } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import personService from './services/persons'
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
+  const [notification, setNotification] = useState({ message: null, type: null })
 
   useEffect(() => {
     personService
@@ -37,6 +39,12 @@ const App = () => {
             setPersons(persons.map(p => p.id === person.id ? returnedPerson : p))
             setNewName('')
             setNewNumber('')
+            setNotification(
+              { message: `Updated ${returnedPerson.name}'s number`, type: 'success' }
+            )
+            setTimeout(() => {
+              setNotification({ message: null, type: null })
+            }, 5000)
           })
       }
     } else {
@@ -45,7 +53,13 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
-        setNewNumber('')
+          setNewNumber('')
+          setNotification(
+            { message: `Added ${returnedPerson.name}`, type: 'success' }
+          )
+          setTimeout(() => {
+            setNotification({ message: null, type: null })
+          }, 5000)
         })    
     }
   }
@@ -57,6 +71,12 @@ const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter(n => n.id !== id))
+          setNotification(
+            { message: `Information of ${personToDelete.name} has been deleted`, type: 'error' }
+          )
+          setTimeout(() => {
+            setNotification({ message: null, type: null })
+          }, 5000)
         })
     }
   }
@@ -79,6 +99,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification.message} type={notification.type} />
       <Filter value={newSearch} handler={handleNewSearch} />
 
       <h3>Add a new</h3>
