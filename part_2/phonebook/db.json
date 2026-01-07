@@ -1,24 +1,19 @@
 {
-  "persons":[
-    { 
-      "name": "Arto Hellas", 
-      "number": "040-123456",
-      "id": "1"
+  "persons": [
+    {
+      "id": "b5a4",
+      "name": "Jin Hong Pang",
+      "number": "888-888888"
     },
-    { 
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523",
-      "id": "2"
+    {
+      "id": "4a3d",
+      "name": "Jin Heng Pang",
+      "number": "676-676767"
     },
-    { 
-      "name": "Dan Abramov", 
-      "number": "12-43-234345",
-      "id": "3"
-    },
-    { 
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122",
-      "id": "4"
+    {
+      "id": "e467",
+      "name": "Yeo Pei Wei",
+      "number": "8989-898989"
     }
   ]
 }
