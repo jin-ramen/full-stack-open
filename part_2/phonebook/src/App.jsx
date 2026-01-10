@@ -46,6 +46,15 @@ const App = () => {
               setNotification({ message: null, type: null })
             }, 5000)
           })
+          .catch(error => {
+            console.log(error.response.data.error)
+            setNotification(
+              { message: error.response.data.error, type: 'error' }
+            )
+            setTimeout(() => {
+              setNotification({ message: null, type: null })
+            }, 5000)
+          })
       }
     } else {
       personService
@@ -60,7 +69,16 @@ const App = () => {
           setTimeout(() => {
             setNotification({ message: null, type: null })
           }, 5000)
-        })    
+        })
+        .catch(error => {
+          console.log(error.response.data.error)
+          setNotification(
+            { message: error.response.data.error, type: 'error' }
+          )
+          setTimeout(() => {
+            setNotification({ message: null, type: null })
+          }, 5000)
+        })
     }
   }
 
