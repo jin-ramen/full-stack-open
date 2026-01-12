@@ -13,9 +13,9 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 
 // list of all persons' details
 app.get('/api/persons', (request, response) => {
-    Person.find({}).then(persons => {
-      response.json(persons)
-    })
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
 })
 
 // look at information of the phonebook
@@ -46,7 +46,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 // delete a person details
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result => {response.status(204).end()})
+    .then(() => {response.status(204).end()})
     .catch(error => next(error))
 })
 
@@ -95,5 +95,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
