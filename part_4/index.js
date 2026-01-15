@@ -1,30 +1,8 @@
-const { MONGODB_URI, PORT } = require('./utils/config')
+const app = require('./app')
+const config = require('./utils/config')
+const logger = require('./utils/logger')
 
-const express = require('express')
-
-const app = express()
-const mongoose = require('mongoose')
-
-const Blog = require('./models/blog')
-
-mongoose.connect(MONGODB_URI, { family: 4 })
-
-app.use(express.json())
-
-app.get('/api/blogs', (request, response) => {
-  Blog.find({}).then((blogs) => {
-    response.json(blogs)
-  })
+app.listen(config.PORT, () => {
+  logger.info(`Server running on port ${config.PORT}`)
 })
 
-app.post('/api/blogs', (request, response) => {
-  const blog = new Blog(request.body)
-
-  blog.save().then((result) => {
-    response.status(201).json(result)
-  })
-})
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
