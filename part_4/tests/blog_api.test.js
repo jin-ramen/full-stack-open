@@ -68,6 +68,22 @@ test.only('likes defaults to 0 when missing from request', async () => {
     assert.strictEqual(response.body.likes, 0)
 })
 
+// 4.12
+test.only('raise 400 error when title or url properties are missing', async () => {
+    const newBlog = {
+        title: 'Blog without url', 
+        author: 'Test Author', 
+        likes: 0
+    }
+
+    const response = await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
+
+})
+
 after(async () => {
     await mongoose.connection.close()
 })
