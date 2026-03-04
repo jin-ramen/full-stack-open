@@ -27,6 +27,30 @@ test.only('unique identifier property is named id', async () => {
     })
 })
 
+// 4.10
+test.only('blog can be added', async () => {
+    const newBlog = {        
+        "title": "Living and not living with AI",
+        "author": "Jin H. Pang",
+        "url": "www.sixseven.com",
+        "likes": "142"
+    }
+    const blogBefore = await helper.blogsInDB()
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const blogAfter = await helper.blogsInDB()
+
+    titles = blogAfter.map(blog => blog.title)
+    assert(titles.includes("Living and not living with AI"))
+
+    assert.strictEqual(blogAfter.length, blogBefore.length + 1)
+})
+
 after(async () => {
     await mongoose.connection.close()
 })
