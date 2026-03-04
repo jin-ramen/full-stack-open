@@ -51,6 +51,23 @@ test.only('blog can be added', async () => {
     assert.strictEqual(blogAfter.length, blogBefore.length + 1)
 })
 
+// 4.11
+test.only('likes defaults to 0 when missing from request', async () => {
+    const newBlog = {
+        title: 'Blog without likes',
+        author: 'Test Author',
+        url: 'www.test.com',
+    }
+
+    const response = await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    assert.strictEqual(response.body.likes, 0)
+})
+
 after(async () => {
     await mongoose.connection.close()
 })
