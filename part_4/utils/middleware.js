@@ -6,6 +6,9 @@ const errorHandler = (error, request, response, next) => {
       error: `expected ${request.body.username} to be unique`
     })
   }
+  if (error.name === 'ValidationError' && error.message.includes('username')) {
+    return response.status(400).json({ error: "username must be at least 3 characters long" })
+  }
 }
 
 module.exports ={
