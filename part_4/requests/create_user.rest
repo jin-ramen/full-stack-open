@@ -1,8 +1,8 @@
 POST http://localhost:3001/api/users
 Content-Type: application/json
-
+# groot - secret
 {
-  "username": "go", 
+  "username": "groot", 
   "name": "master", 
-  "password": "pass"
+  "password": "secret"
 }

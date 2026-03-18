@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "test_user",
+    "author": "Jin H. Pang",
+    "url": "www.sixseven.com",
+    "likes": -67,
+    "id": "69b92da996dce2edc0903219",
+    "userId": "69ba630f8082405d10de5857"
+}
