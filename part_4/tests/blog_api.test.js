@@ -4,14 +4,26 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
+const bcrypt = require('bcrypt')
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 const api = supertest(app)
 
 describe('when there is initially some notes saved', () => {
+    let userId
+
     beforeEach(async () => {
         await Blog.deleteMany({})
         await Blog.insertMany(helper.initialBlogs)
+
+        await User.deleteMany({})
+    
+        const passwordHash = await bcrypt.hash('secret', 10)
+        const user = new User({ username: 'root', name: 'superUser', passwordHash })
+        userId = user._id
+
+        await user.save()
     })
 
     // 4.8
@@ -31,10 +43,11 @@ describe('when there is initially some notes saved', () => {
     // 4.10
     test('blog can be added', async () => {
         const newBlog = {        
-            "title": "Living and not living with AI",
-            "author": "Jin H. Pang",
-            "url": "www.sixseven.com",
-            "likes": "142"
+            title: "Living and not living with AI",
+            author: "Jin H. Pang",
+            url: "www.sixseven.com",
+            likes: "142", 
+            userId: userId 
         }
         const blogBefore = await helper.blogsInDB()
 
@@ -58,6 +71,7 @@ describe('when there is initially some notes saved', () => {
             title: 'Blog without likes',
             author: 'Test Author',
             url: 'www.test.com',
+            userId: userId
         }
 
         const response = await api
@@ -74,7 +88,8 @@ describe('when there is initially some notes saved', () => {
         const newBlog = {
             title: 'Blog without url', 
             author: 'Test Author', 
-            likes: 0
+            likes: 0, 
+            userId: userId
         }
 
         const response = await api
@@ -116,6 +131,7 @@ describe('when there is initially some notes saved', () => {
         const updatedBlog = await blogAtEnd.find(b => b.id === blogToUpdate.id)
         assert.strictEqual(updatedBlog.likes, 99)
     })
+    
 })
 
 after(async () => {

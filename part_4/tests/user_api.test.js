@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt')
 
 const api = supertest(app)
 
-describe.only('when there is initially one user in db', () => {
+describe('when there is initially one user in db', () => {
     beforeEach(async () => {
         await User.deleteMany({})
     
@@ -49,7 +49,7 @@ describe.only('when there is initially one user in db', () => {
     test('password must be at least 3 characters long', async () => {
         const userAtStart = await helper.usersInDB()
 
-        const result = await helper.postUser({ username: 'root', name: 'superUser', password: 'se' })
+        const result = await helper.postUser({ username: 'newuser', name: 'superUser', password: 'se' })
         
         const userAtEnd = await helper.usersInDB()
         
@@ -58,6 +58,7 @@ describe.only('when there is initially one user in db', () => {
 
         assert.strictEqual(userAtEnd.length, userAtStart.length)
     })
+
 })
 
 after(async () => {
