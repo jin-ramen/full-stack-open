@@ -1,9 +1,7 @@
-POST http://localhost:3001/api/users
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
-# groot - secret
 {
   "username": "groot", 
-  "name": "master", 
   "password": "secret"
 }

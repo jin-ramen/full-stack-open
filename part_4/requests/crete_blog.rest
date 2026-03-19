@@ -1,11 +1,12 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imdyb290IiwiaWQiOiI2OWJiY2JiYzQ2NGEyNjVhOGMwY2NhYjciLCJpYXQiOjE3NzM5MTYxNTh9.oJKiAj_ybyMN8wG4GNmVEN8DvORR_Itf-eviOJwPFRs
 
 {
-    "title": "test_user",
+    "title": "testno token_user",
     "author": "Jin H. Pang",
     "url": "www.sixseven.com",
     "likes": -67,
     "id": "69b92da996dce2edc0903219",
-    "userId": "69ba630f8082405d10de5857"
+    "userId": "69bbcbbc464a265a8c0ccab7"
 }
